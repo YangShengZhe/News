@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:background="@color/bac2"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+//标题栏
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@color/bac2">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/back"/>
+            <TextView
+                android:id="@+id/tv_bar_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textSize="20sp"/>
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+
+    //新闻内容
+    <WebView
+        android:id="@+id/wb_news_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <ProgressBar
+        android:id="@+id/proB_load"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        style="@style/Progress_circle"/>
+
+
+</FrameLayout>

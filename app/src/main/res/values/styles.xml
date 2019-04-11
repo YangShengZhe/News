@@ -1,0 +1,20 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/bac2</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+    //加载图标
+    <style name="Progress_circle">
+        <item name="android:indeterminateDuration">900</item>
+        <item name="android:indeterminateDrawable">@drawable/progress_circle</item>
+        <item name="android:minWidth">30dp</item>
+        <item name="android:minHeight">30dp</item>
+        <item name="android:maxWidth">60dp</item>
+        <item name="android:maxHeight">60dp</item>
+    </style>
+</resources>
