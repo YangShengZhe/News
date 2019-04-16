@@ -11,8 +11,8 @@
         android:id="@+id/msearch"
         android:enabled="true"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/search"
-        android:title="search" />
+        android:icon="@drawable/movie"
+        android:title="movie" />
     <item
         android:id="@+id/mtopic"
         android:enabled="true"
