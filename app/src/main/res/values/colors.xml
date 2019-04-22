@@ -9,5 +9,7 @@
     <color name="bottom_navigation_normal">#CCCCCC</color>
     <color name="bac1">#E0FFFF</color>
     <color name="bac2">#FA8072</color>
+    <color name="loginBac">#F08080</color>
     <color name="black">#000000</color>
+    <color name="ButtonColor">#63B8FF</color>
 </resources>

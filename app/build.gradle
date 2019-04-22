@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
@@ -39,4 +40,13 @@ dependencies {
 
     implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     implementation 'io.reactivex:rxandroid:1.2.0'
+
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+
+    implementation files('libs/open_sdk_r5509.jar')
+    implementation files('libs/mta-sdk-1.6.2.jar')
+    implementation files('libs/picasso-2.5.2.jar')
+    implementation 'com.google.code.gson:gson:2.7'
+
+    
 }
