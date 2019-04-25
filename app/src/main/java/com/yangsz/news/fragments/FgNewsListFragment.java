@@ -1,4 +1,4 @@
-package com.yangsz.news;
+package com.yangsz.news.fragments;
 
 
 import android.os.Bundle;
@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.yangsz.news.Bean.NewsBean;
+import com.yangsz.news.ItemNewsAdapter;
 import com.yangsz.news.News.Presenter.NewsPresenter;
 import com.yangsz.news.News.View.INewsView;
+import com.yangsz.news.R;
 
 import java.util.List;
 

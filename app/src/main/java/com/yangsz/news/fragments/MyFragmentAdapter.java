@@ -1,4 +1,4 @@
-package com.yangsz.news;
+package com.yangsz.news.fragments;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

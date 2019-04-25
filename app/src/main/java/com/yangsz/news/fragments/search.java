@@ -1,4 +1,4 @@
-package com.yangsz.news;
+package com.yangsz.news.fragments;
 
 
 import android.graphics.Color;
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.yangsz.news.Bean.MoviesBean;
+import com.yangsz.news.R;
 import com.yangsz.news.movie.ItemMovieAdapter;
 import com.yangsz.news.movie.presenter.MoviePresenter;
 import com.yangsz.news.movie.view.IMovieView;

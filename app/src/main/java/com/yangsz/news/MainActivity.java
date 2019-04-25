@@ -1,25 +1,25 @@
 package com.yangsz.news;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-import com.yangsz.news.LoginPage.Login;
+
+import com.yangsz.news.fragments.Page;
+import com.yangsz.news.fragments.account;
+import com.yangsz.news.fragments.search;
+import com.yangsz.news.fragments.topic;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
+import cn.bmob.v3.Bmob;
 
 public class MainActivity extends AppCompatActivity {
     //初始化工作
@@ -38,23 +38,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
 
-        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                mDrawerLayout.closeDrawers();
-                switch (item.getItemId()){
-                    case R.id.nav_account:
-                        Intent intent = new Intent(MainActivity.this, Login.class);
-                        startActivity(intent);
-                        break;
-                }
-
-                return true;
-            }
-        });
+        Bmob.initialize(this,"3bda5b17bc4bdebf8428b26cdc154e30");
 
         mToolbar=findViewById(R.id.toolbar);
         initBottomNavigation();//加载导航栏

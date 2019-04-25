@@ -6,7 +6,7 @@ import com.yangsz.news.News.Model.INewsModel;
 import com.yangsz.news.News.Model.IOnLoadListener;
 import com.yangsz.news.News.Model.NewsModel;
 import com.yangsz.news.News.View.INewsView;
-import com.yangsz.news.Page;
+import com.yangsz.news.fragments.Page;
 
 public class NewsPresenter implements INewsPresenter, IOnLoadListener {
     private INewsModel iNewsModel;

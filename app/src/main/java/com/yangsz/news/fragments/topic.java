@@ -1,4 +1,4 @@
-package com.yangsz.news;
+package com.yangsz.news.fragments;
 
 
 import android.os.Bundle;
@@ -7,14 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yangsz.news.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class account extends Fragment {
+public class topic extends Fragment {
 
 
-    public account() {
+    public topic() {
         // Required empty public constructor
     }
 
@@ -23,7 +25,7 @@ public class account extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        return inflater.inflate(R.layout.fragment_topic, container, false);
     }
 
 }
