@@ -1,30 +1,41 @@
 package com.yangsz.news;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.String;
 import android.widget.EditText;
+import android.widget.TextView;
 
 
 import com.yangsz.news.DBmodel.User;
 
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.LogInListener;
+
 import cn.bmob.v3.listener.SaveListener;
+
 
 public class Login extends AppCompatActivity {
 
     private EditText input_account;
     private EditText input_password;
     private Button signin_button;
+    private TextView signUp;
     private String acc;
     private String psw;
-
 
 
     @Override
@@ -35,6 +46,7 @@ public class Login extends AppCompatActivity {
         input_account=(EditText)findViewById(R.id.loginAccount);
         input_password=(EditText)findViewById(R.id.password);
         signin_button=(Button)findViewById(R.id.signIn);
+        signUp=(TextView)findViewById(R.id.signUp);
 
         //登录事件监听
         signin_button.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +57,16 @@ public class Login extends AppCompatActivity {
                 login(view);
             }
         });
+
+        //注册监听
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it=new Intent(Login.this,Regist.class);
+                startActivity(it);
+            }
+        });
+
 
     }
 
@@ -64,11 +86,12 @@ public class Login extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Snackbar.make(view, "登录失败：请重新输入或注册" , Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(view, "登录失败,请重新输入或注册" , Snackbar.LENGTH_LONG).show();
                 }
             }
         });
     }
+
 
 
 }

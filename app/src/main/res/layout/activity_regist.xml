@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Regist">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/choosedimage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/account"/>
+
+        <ImageView
+            android:id="@+id/selectImage"
+            android:src="@drawable/selectimage"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="50dp"
+        android:text="输入用户名"/>
+    <EditText
+        android:id="@+id/registName"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="50dp"
+        android:text="输入密码"/>
+    <EditText
+        android:id="@+id/registPassword"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/regist"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:text="注册"
+        android:textSize="15sp"
+        android:textColor="@color/ButtonColor"
+        android:background="@drawable/shape_1"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="50dp" />
+
+
+</LinearLayout>
