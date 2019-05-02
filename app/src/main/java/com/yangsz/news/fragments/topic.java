@@ -1,10 +1,12 @@
 package com.yangsz.news.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +17,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yangsz.news.CommentDetail;
 import com.yangsz.news.DBmodel.PostTopic;
+import com.yangsz.news.ItemStyle.SpacesItemDecoration;
 import com.yangsz.news.MainActivity;
 import com.yangsz.news.R;
 
@@ -36,7 +40,6 @@ public class topic extends Fragment {
     private TopicAdapter topicAdapter;
 
 
-
     public topic() {
         // Required empty public constructor
     }
@@ -46,26 +49,31 @@ public class topic extends Fragment {
                              Bundle savedInstanceState) {
 
         View view= inflater.inflate(R.layout.fragment_topic, container, false);
-        initRecyclerView(view);
-        queryData();
+
+
+        queryData(view);
 
         return view;
+
     }
 
 
     //查询话题列表
-    private void queryData(){
+    private void queryData(final View view){
         BmobQuery<PostTopic> bmobQuery=new BmobQuery<>();
         bmobQuery.findObjects(new FindListener<PostTopic>() {
             @Override
             public void done(List<PostTopic> list, BmobException e) {
                 if(e==null){//找到数据
                     //给获取的表赋值
-                    for(int i=0;i<list.size();i++){
-                        PostTopic pt=new PostTopic(list.get(i).getPoster(),list.get(i).getPostContent(),list.get(i).getPostTime());
+                    for(int i=0;i<list.size();i++) {
+                        PostTopic pt = new PostTopic(list.get(i).getPoster(), list.get(i).getPostContent());
                         TList.add(pt);
                     }
-                    Toast.makeText(getActivity(),"找到数据",Toast.LENGTH_SHORT).show();
+                        //因为BMob查询操作是异步执行的所以在查询完后进行更新ui的操作
+                        initUI(view);
+
+                   // Toast.makeText(getActivity(),"找到数据",Toast.LENGTH_SHORT).show();
                 }else{//未找到数据
                     Toast.makeText(getActivity(),"未找到数据",Toast.LENGTH_SHORT).show();
                 }
@@ -74,8 +82,8 @@ public class topic extends Fragment {
     }
 
 
-    //对recyclerview进行配置
-    private void initRecyclerView(View view) {
+
+    private void initUI(View view){
         //获取RecyclerView
         topicList=(RecyclerView)view.findViewById(R.id.topic_list);
         //创建adapter
@@ -87,11 +95,19 @@ public class topic extends Fragment {
         topicList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         //设置item的分割线
         topicList.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
+
         //RecyclerView中没有item的监听事件，需要自己在适配器中写一个监听事件的接口。参数根据自定义
         topicAdapter.setOnItemClickListener(new TopicAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(View view, PostTopic data) {
-                Toast.makeText(getActivity(),"点击",Toast.LENGTH_SHORT).show();
+                //点击事件
+                Intent it=new Intent(getActivity(),CommentDetail.class);
+                Bundle bd=new Bundle();
+                //添加数据至bundle并传递
+                bd.putString("poster",data.getPoster());
+                bd.putString("postContent",data.getPostContent());
+                it.putExtras(bd);
+                startActivity(it);
             }
         });
     }

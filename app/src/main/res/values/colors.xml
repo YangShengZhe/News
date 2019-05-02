@@ -12,4 +12,8 @@
     <color name="loginBac">#F08080</color>
     <color name="black">#000000</color>
     <color name="ButtonColor">#63B8FF</color>
+
+    <color name="grey">#ececec</color>
+    <color name="txtgrey">#7c7b7b</color>
+    <color name="greywhite">#aeacac</color>
 </resources>
