@@ -12,6 +12,9 @@ public class Comment extends BmobObject {
         this.replyer=replyer;
         this.replyContent=replyContent;
     }
+    public Comment(){
+
+    }
 
     public String getPoster() {
         return poster;

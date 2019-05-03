@@ -23,7 +23,6 @@ import java.util.List;
 
 public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.myViewHolder> {
     private Context context;
-    private String time="yyyy-MM-dd HH:mm:ss";
     private ArrayList<PostTopic> PTList;
 
     private int resourceId;
@@ -46,22 +45,31 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.myViewHolder
    @Override
    public void onBindViewHolder(myViewHolder holder,int position){
         PostTopic data=PTList.get(position);
+        //设置数据
         holder.poster.setText(data.getPoster());
         holder.postContent.setText(data.getPostContent());
+        holder.BrowseCount.setText(data.getBrowseCount());
+        holder.likesCount.setText(data.getLikesCount());
+        holder.CommentsCount.setText(data.getCommentsCount());
 
-      //  holder.postTime.setText(tt);
    }
 
    class myViewHolder extends RecyclerView.ViewHolder{
         private TextView poster;
         private TextView postContent;
-        private TextView postTime;
+        private TextView likesCount;
+        private TextView BrowseCount;
+        private TextView CommentsCount;
 
         public myViewHolder(View itemView){
             super(itemView);
             poster=(TextView) itemView.findViewById(R.id.poster);
             postContent=(TextView) itemView.findViewById(R.id.postContent);
-            postTime=(TextView)itemView.findViewById(R.id.postTime);
+            likesCount=(TextView)itemView.findViewById(R.id.likesCount);
+            BrowseCount=(TextView)itemView.findViewById(R.id.BrowseCount);
+            CommentsCount=(TextView)itemView.findViewById(R.id.CommentsCount);
+
+
             //点击事件可以在这儿设置
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +83,6 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.myViewHolder
         }
    }
 
-
    //设置item监听事件的接口
     public interface OnItemClickListener{
         public void OnItemClick(View view,PostTopic data);
@@ -84,6 +91,14 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.myViewHolder
    private  OnItemClickListener onItemClickListener;
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener=onItemClickListener;
+    }
+
+    //  删除数据
+    public void removeData(int position) {
+        PTList.remove(position);
+        //删除动画
+        notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 
 }

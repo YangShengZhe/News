@@ -18,9 +18,6 @@ import cn.bmob.v3.BmobUser;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class account extends Fragment {
 
     private CircleImageView userImage;
@@ -45,6 +42,7 @@ public class account extends Fragment {
         find(view);
         initView();
 
+        //登录监听的一系列事件
         if(!BmobUser.isLogin()){
             userImage.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -53,7 +51,6 @@ public class account extends Fragment {
                     startActivity(intent);
                 }
             });
-
 
         }else if(BmobUser.isLogin()){
             //点击图片进入个人信息页面
@@ -64,15 +61,11 @@ public class account extends Fragment {
                 @Override
                 public void onClick(View view) {
                     BmobUser.logOut();
-                    account_username.setText("尚未登录");
-                    userImage.setImageResource(R.drawable.defaultimage);
+                    getActivity().finish();
                     Snackbar.make(view, "退出成功：" , Snackbar.LENGTH_LONG).show();
-
                 }
             });
         }
-
-
 
         return view;
     }

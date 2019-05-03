@@ -8,48 +8,75 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp">
+        <ImageView
+            android:src="@drawable/account"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
     <TextView
         android:id="@+id/poster"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="23sp"
+        android:textColor="@color/topictext"
+        android:layout_marginLeft="15dp"
         android:text="用户"/>
-        <TextView
-            android:id="@+id/postTime"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <TextView
         android:id="@+id/postContent"
         android:text="内容"
         android:layout_width="match_parent"
-        android:layout_height="80dp" />
-
+        android:layout_height="80dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"/>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="35dp">
         <TextView
             android:text="喜欢:"
+            android:gravity="center_vertical"
+            android:textColor="@color/topictext"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
         <TextView
             android:id="@+id/likesCount"
             android:text="0"
+            android:gravity="center_vertical"
+            android:textColor="@color/topictext"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
         <TextView
             android:text="评论:"
             android:layout_marginLeft="30dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/topictext"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
         <TextView
             android:id="@+id/CommentsCount"
             android:text="0"
+            android:gravity="center_vertical"
+            android:textColor="@color/topictext"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
-
+        <TextView
+            android:text="浏览量:"
+            android:layout_marginLeft="30dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/topictext"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/BrowseCount"
+            android:text="0"
+            android:gravity="center_vertical"
+            android:textColor="@color/topictext"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
     </LinearLayout>
+
 </LinearLayout>
+

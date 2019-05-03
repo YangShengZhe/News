@@ -1,5 +1,6 @@
 package com.yangsz.news;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -39,12 +40,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //加载Bmob数据库
         Bmob.initialize(this,"3bda5b17bc4bdebf8428b26cdc154e30");
 
         mToolbar=findViewById(R.id.toolbar);
         initBottomNavigation();//加载导航栏
         initData();
     }
+//    返回活动时决定启动哪个fragment
+//    @Override
+//    protected void onRestart(){
+//        super.onRestart();
+//        int fragmentId=getIntent().getIntExtra("id",2);
+//        setFragmentPosition(fragmentId);
+//
+//    }
 
 
 

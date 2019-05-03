@@ -7,7 +7,11 @@
     android:background="@color/bac1"
     android:orientation="vertical"
     tools:context=".Login">
-
+    <ImageView
+        android:id="@+id/login_back"
+        android:src="@drawable/back"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
 
 
     <EditText
@@ -21,7 +25,7 @@
         android:background="@drawable/shape_2"
         android:layout_marginLeft="80dp"
         android:layout_marginRight="80dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="110dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 

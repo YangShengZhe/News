@@ -2,6 +2,7 @@ package com.yangsz.news;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -32,23 +33,16 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 public class CommentDetail extends AppCompatActivity  {
-
-    private ImageView comment;
-    private TextView hide_down;
-    private EditText comment_content;
-    private Button comment_send;
-
-    private LinearLayout rl_enroll;
-    private RelativeLayout rl_comment;
-
+    private ImageView commentBack;
     private RecyclerView comment_recyclerview;
     private CommentAdapter adapterComment;
     private ArrayList<Comment> commentList=new ArrayList<Comment>();
 
-    private String poster;
-    private String postContent;
+    private String poster1;
+    private String postContent1;
 
     private TextView CDPoster;
     private TextView CDPostContent;
@@ -60,29 +54,44 @@ public class CommentDetail extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment_detail);
+        //控件初始化
         CDPoster=(TextView)findViewById(R.id.CDPoster);
         CDPostContent=(TextView)findViewById(R.id.CDPostContent);
         comment_recyclerview=(RecyclerView)findViewById(R.id.comment_list);
+        commentBack=(ImageView)findViewById(R.id.comment_back);
+
 
         Bundle bundle= getIntent().getExtras();
         //初始化发帖人数据
-        poster=bundle.getString("poster");
-        postContent=bundle.getString("postContent");
-        CDPoster.setText(poster);
-        CDPostContent.setText(postContent);
+        poster1=bundle.getString("poster");
+        postContent1=bundle.getString("postContent");
+        String count=bundle.getString("BrowseCount");
+        CDPoster.setText(poster1);
+        CDPostContent.setText(postContent1);
 
 
+        //查询数据显示
         queryDataList();
-       // initRecyclerView();
+
+        //返回按钮的监听
+        commentBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
     }
 
     private void initRecyclerView() {
-
         //设置layoutManager,可以设置显示效果，是线性布局、grid布局，还是瀑布流布局
-        //参数是：上下文、列表方向（横向还是纵向）、是否倒叙
+        comment_recyclerview.setLayoutManager(new LinearLayoutManager(CommentDetail.this, LinearLayoutManager.VERTICAL, false));
 
-        //设置item的分割线
+        mCollectRecyclerAdapter = new CommentAdapter(commentList);
+        //给RecyclerView设置adapter
+        comment_recyclerview.setAdapter(mCollectRecyclerAdapter);
+        //设置item的分割线  参数是：上下文、列表方向（横向还是纵向）、是否倒叙
+        comment_recyclerview.addItemDecoration(new DividerItemDecoration(CommentDetail.this,DividerItemDecoration.VERTICAL));
 
         //RecyclerView中没有item的监听事件，需要自己在适配器中写一个监听事件的接口。参数根据自定义
         mCollectRecyclerAdapter.setOnItemClickListener(new CommentAdapter.OnItemClickListener() {
@@ -91,8 +100,6 @@ public class CommentDetail extends AppCompatActivity  {
                 //设置评论点击事件
             }
         });
-
-        Toast.makeText(CommentDetail.this,"加载完成",Toast.LENGTH_SHORT).show();
     }
 
 
@@ -100,6 +107,8 @@ public class CommentDetail extends AppCompatActivity  {
     //查询初始评论数据
     private void queryDataList(){
         BmobQuery<Comment> bmobQuery=new BmobQuery<>();
+        bmobQuery.addWhereEqualTo("poster",poster1);
+        bmobQuery.addWhereEqualTo("postContent",postContent1);
         final List<Comment> Clist=new ArrayList<>();
         bmobQuery.findObjects(new FindListener<Comment>() {
             @Override
@@ -107,26 +116,22 @@ public class CommentDetail extends AppCompatActivity  {
                 if(e==null){//找到数据
                     //给获取的表赋值
                     for(int i=0;i<list.size();i++){
-                        Comment pt=new Comment(list.get(i).getReplyer(),list.get(i).getReplyContent());
-                        Clist.add(pt);
+                        Comment ct=new Comment(list.get(i).getReplyer(),list.get(i).getReplyContent());
+                        Clist.add(ct);
                     }
                     commentList.addAll(Clist);
                     //设置数据显示
+                    initRecyclerView();
 
-                    comment_recyclerview.setLayoutManager(new LinearLayoutManager(CommentDetail.this, LinearLayoutManager.VERTICAL, false));
-
-                    mCollectRecyclerAdapter = new CommentAdapter(commentList);
-                    //给RecyclerView设置adapter
-                    comment_recyclerview.setAdapter(mCollectRecyclerAdapter);
-                    comment_recyclerview.addItemDecoration(new DividerItemDecoration(CommentDetail.this,DividerItemDecoration.VERTICAL));
-
-                    Toast.makeText(CommentDetail.this,"找到数据"+commentList.get(0).getReplyer(),Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(CommentDetail.this,"找到数据"+commentList.get(0).getReplyer(),Toast.LENGTH_SHORT).show();
                 }else{//未找到数据
                     Toast.makeText(CommentDetail.this,"未找到数据",Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
+
 
 
 //    //设置监听

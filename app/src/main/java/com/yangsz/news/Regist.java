@@ -39,16 +39,21 @@ public class Regist extends AppCompatActivity {
     private CircleImageView choosed_image;
     private String path;
     private Uri userImageUri;
+    private ImageView registBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regist);
+        //控件初始化
         regist_name=(EditText)findViewById(R.id.registName);
         regist_password=(EditText)findViewById(R.id.registPassword);
         regist=(Button)findViewById(R.id.regist);
         select_image=(ImageView)findViewById(R.id.selectImage);
         choosed_image=(CircleImageView)findViewById(R.id.choosedimage);
+        registBack=(ImageView)findViewById(R.id.regist_back);
+
+
         //选择头像事件监听
         select_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +75,15 @@ public class Regist extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 signUp(view);
+                finish();
+            }
+        });
+
+        //返回时间监听
+        registBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
@@ -89,9 +103,6 @@ public class Regist extends AppCompatActivity {
                 public void done(User user, BmobException e) {
                     if (e == null) {
                         Snackbar.make(view, "注册成功", Snackbar.LENGTH_LONG).show();
-                        Intent it=new Intent(Regist.this,Login.class);
-                        startActivity(it);
-                        finish();
                     } else {
                         Snackbar.make(view, "尚未失败：" + e.getMessage(), Snackbar.LENGTH_LONG).show();
                     }

@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.String;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -34,6 +35,7 @@ public class Login extends AppCompatActivity {
     private EditText input_password;
     private Button signin_button;
     private TextView signUp;
+    private ImageView loginBack;
     private String acc;
     private String psw;
 
@@ -47,6 +49,7 @@ public class Login extends AppCompatActivity {
         input_password=(EditText)findViewById(R.id.password);
         signin_button=(Button)findViewById(R.id.signIn);
         signUp=(TextView)findViewById(R.id.signUp);
+        loginBack=(ImageView)findViewById(R.id.login_back);
 
         //登录事件监听
         signin_button.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +70,14 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        //返回事件监听
+        loginBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
 
     }
 
@@ -80,10 +91,8 @@ public class Login extends AppCompatActivity {
             @Override
             public void done(User bmobUser, BmobException e) {
                 if (e == null) {
-//                    User user = BmobUser.getCurrentUser(User.class);
-//                    Snackbar.make(view, "登录成功：" + user.getUsername(), Snackbar.LENGTH_LONG).show();
-                    Intent intent =new Intent(Login.this,MainActivity.class);
-                    startActivity(intent);
+                    Intent it2=new Intent(Login.this,MainActivity.class);
+                    startActivity(it2);
                     finish();
                 } else {
                     Snackbar.make(view, "登录失败,请重新输入或注册" , Snackbar.LENGTH_LONG).show();
