@@ -24,8 +24,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CommentDetail"></activity>
-        <activity android:name=".Comment" />
+        <activity android:name=".Addtopic"></activity>
+        <activity android:name=".CommentDetail"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".Regist" />
         <activity android:name=".Login" />
         <activity android:name=".MainActivity">

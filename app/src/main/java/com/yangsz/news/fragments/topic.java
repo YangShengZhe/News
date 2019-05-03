@@ -3,6 +3,7 @@ package com.yangsz.news.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
@@ -17,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yangsz.news.Addtopic;
 import com.yangsz.news.CommentDetail;
 import com.yangsz.news.DBmodel.Comment;
 import com.yangsz.news.DBmodel.PostTopic;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.UpdateListener;
@@ -40,8 +43,7 @@ public class topic extends Fragment {
     //数据列表
     private ArrayList<PostTopic> TList=new ArrayList<PostTopic>();
     private TopicAdapter topicAdapter;
-    private String test;
-    private int topicSize;
+    private FloatingActionButton addtopic;
 
 
     public topic() {
@@ -53,30 +55,48 @@ public class topic extends Fragment {
                              Bundle savedInstanceState) {
 
         final View view= inflater.inflate(R.layout.fragment_topic, container, false);
-        //获取RecyclerView
+        //初始化控件
         topicList=(RecyclerView)view.findViewById(R.id.topic_list);
         srltopic=(SwipeRefreshLayout)view.findViewById(R.id.srl_topic);
+        addtopic=(FloatingActionButton)view.findViewById(R.id.addTopic);
+
         queryData();
 
+        //刷新事件监听
         srltopic.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 queryData();
             }
         });
+        //添加话题事件监听
+        addtopic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //转换到添加话题的活动，此时要分为两种情况，一种是登录后的一种是没有登陆的
+                if (BmobUser.isLogin()){//登录了进行跳转
+                    Intent it3=new Intent(getActivity(), Addtopic.class);
+                    startActivity(it3);
+                }else{
+                    //未登录，提示
+                    Toast.makeText(getActivity(),"未登录，请先登录",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         return view;
     }
-
 
     //查询话题列表
     private void queryData(){
         BmobQuery<PostTopic> bmobQuery=new BmobQuery<>();
+        //重新清空表数据以免重复加载数据
+        TList=new ArrayList<PostTopic>();
         bmobQuery.findObjects(new FindListener<PostTopic>() {
             @Override
             public void done(List<PostTopic> list, BmobException e) {
                 if(e==null){//找到数据
                     //给获取的表赋值
-                    topicSize=list.size();
                     for(int i=0;i<list.size();i++) {
                         PostTopic pt = new PostTopic(list.get(i).getPoster(), list.get(i).getPostContent(),list.get(i).getLikesCount(),list.get(i).getBrowseCount(),list.get(i).getObjectId());
                         pt.setCommentsCount(list.get(i).getCommentsCount());
@@ -84,7 +104,7 @@ public class topic extends Fragment {
                     }
                     //因为BMob查询操作是异步执行的所以在查询完后进行更新ui的操作
                     initUI();
-                   // Toast.makeText(getActivity(),"找到数据",Toast.LENGTH_SHORT).show();
+                   //Toast.makeText(getActivity(),"找到数据",Toast.LENGTH_SHORT).show();
                 }else{//未找到数据
                     Toast.makeText(getActivity(),"未找到数据",Toast.LENGTH_SHORT).show();
                 }
@@ -113,9 +133,12 @@ public class topic extends Fragment {
                 //点击事件
                 Intent it=new Intent(getActivity(),CommentDetail.class);
                 Bundle bd=new Bundle();
-                //添加数据至bundle并传递
+                //添加数据至bundle并传递有发帖人，内容，表的id
                 bd.putString("poster",data.getPoster());
                 bd.putString("postContent",data.getPostContent());
+                bd.putString("likesCount",data.getLikesCount());
+                bd.putString("commentCount",data.getCommentsCount());
+                bd.putString("id",data.id);
                 it.putExtras(bd);
 
                 //点击之后更新浏览量
@@ -143,7 +166,5 @@ public class topic extends Fragment {
             }
         });
     }
-
-
 
 }

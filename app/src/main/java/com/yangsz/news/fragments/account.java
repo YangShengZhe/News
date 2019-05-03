@@ -61,6 +61,7 @@ public class account extends Fragment {
                 @Override
                 public void onClick(View view) {
                     BmobUser.logOut();
+                    //将刚才新创建的活动销毁
                     getActivity().finish();
                     Snackbar.make(view, "退出成功：" , Snackbar.LENGTH_LONG).show();
                 }

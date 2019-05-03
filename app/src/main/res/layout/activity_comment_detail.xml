@@ -42,24 +42,13 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="90dp">
         <TextView
             android:id="@+id/CDPostContent"
             android:text="内容"
             android:textSize="18sp"
             android:gravity="center_vertical"
-            android:layout_width="350dp"
-            android:layout_height="match_parent" />
-        <ImageView
-            android:id="@+id/CDlikes"
-            android:src="@drawable/loving_heart"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-
-        </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="90dp" />
 
     </LinearLayout>
 
@@ -89,81 +78,42 @@
 
     </LinearLayout>
 
-    <!--<LinearLayout-->
-    <!--android:id="@+id/rl_enroll"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="50dp"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:background="@color/white">-->
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="45dp"
+       android:layout_alignParentBottom="true"
+       android:background="@color/white"
+       android:orientation="horizontal">
+    <EditText
+        android:id="@+id/addCommenContent"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:hint="评论两句吧~"/>
+    <Button
+        android:id="@+id/submmitComment"
+        android:text="发表"
+        android:textColor="@color/white"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/shape_4"/>
 
-    <!--<ImageView-->
-    <!--android:id="@+id/comment"-->
-    <!--android:layout_width="32dp"-->
-    <!--android:layout_height="32dp"-->
-    <!--android:src="@drawable/comment"-->
-    <!--android:layout_weight="1"-->
-    <!--android:layout_gravity="center" />-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/chat"-->
-    <!--android:layout_width="23dp"-->
-    <!--android:layout_height="23dp"-->
-    <!--android:src="@drawable/chat"-->
-    <!--android:layout_weight="1"-->
-    <!--android:layout_gravity="center"/>-->
-    <!--</LinearLayout>-->
-
-    <!--<RelativeLayout-->
-    <!--android:id="@+id/rl_comment"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="50dp"-->
-    <!--android:background="@color/white"-->
-    <!--android:visibility="gone"-->
-    <!--android:layout_alignParentBottom="true">-->
-
-
-    <!--<TextView-->
-    <!--android:id="@+id/hide_down"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="@string/hide_down"-->
-    <!--android:textSize="13sp"-->
-    <!--android:textColor="@color/txtgrey"-->
-    <!--android:drawableBottom="@drawable/hide_dowm"-->
-    <!--android:layout_alignParentLeft="true"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:layout_marginLeft="10dp"/>-->
-    <!--<View-->
-    <!--android:layout_width="1dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:background="@color/grey"-->
-    <!--android:layout_toRightOf="@id/hide_down"-->
-    <!--android:layout_marginLeft="10dp"/>-->
-    <!--<EditText-->
-    <!--android:id="@+id/comment_content"-->
-    <!--android:hint="@string/comment_content"-->
-    <!--android:textSize="15sp"-->
-    <!--android:singleLine="true"-->
-    <!--android:layout_width="240dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:background="@null"-->
-    <!--android:layout_toRightOf="@id/hide_down"-->
-    <!--android:layout_marginLeft="20dp"/>-->
-
-    <!--<Button-->
-    <!--android:id="@+id/comment_send"-->
-    <!--android:layout_width="50dp"-->
-    <!--android:layout_height="35dp"-->
-    <!--android:layout_margin="5dp"-->
-    <!--android:text="@string/send"-->
-    <!--android:textSize="13sp"-->
-    <!--android:textColor="@color/white"-->
-    <!--android:background="@color/bb_inActiveBottomBarItemColor"-->
-    <!--android:layout_alignParentRight="true"-->
-    <!--android:layout_marginRight="10dp"-->
-    <!--android:layout_marginLeft="15dp"/>-->
-    <!--</RelativeLayout>-->
-
+       <ImageView
+           android:id="@+id/addlikes"
+           android:src="@drawable/love"
+           android:layout_marginLeft="6dp"
+           android:layout_width="30dp"
+           android:layout_height="30dp"
+           android:layout_gravity="center_vertical"/>
+       <ImageView
+           android:id="@+id/likeIf"
+           android:text="喜欢"
+           android:src="@drawable/dislike"
+           android:gravity="center_vertical"
+           android:layout_marginLeft="10dp"
+           android:layout_width="30dp"
+           android:layout_height="30dp"
+           android:layout_gravity="center_vertical"/>
+   </LinearLayout>
 
 </RelativeLayout>

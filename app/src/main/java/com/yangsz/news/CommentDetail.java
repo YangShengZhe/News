@@ -46,8 +46,15 @@ public class CommentDetail extends AppCompatActivity  {
 
     private TextView CDPoster;
     private TextView CDPostContent;
+    private String postId;
+    private String oriLikesCount;
+    private String oriCommentCount;
 
     private CommentAdapter  mCollectRecyclerAdapter;
+    private ImageView likeif;
+    private ImageView addlike;
+    private Button submmitComment;
+    private EditText addCommentContent;
 
 
     @Override
@@ -59,16 +66,21 @@ public class CommentDetail extends AppCompatActivity  {
         CDPostContent=(TextView)findViewById(R.id.CDPostContent);
         comment_recyclerview=(RecyclerView)findViewById(R.id.comment_list);
         commentBack=(ImageView)findViewById(R.id.comment_back);
-
+        likeif=(ImageView) findViewById(R.id.likeIf);
+        addlike=(ImageView)findViewById(R.id.addlikes);
+        submmitComment=(Button)findViewById(R.id.submmitComment);
+        addCommentContent=(EditText)findViewById(R.id.addCommenContent);
 
         Bundle bundle= getIntent().getExtras();
         //初始化发帖人数据
         poster1=bundle.getString("poster");
         postContent1=bundle.getString("postContent");
+        postId=bundle.getString("id");
+        oriLikesCount=bundle.getString("likesCount");
+        oriCommentCount=bundle.getString("commentCount");
         String count=bundle.getString("BrowseCount");
         CDPoster.setText(poster1);
         CDPostContent.setText(postContent1);
-
 
         //查询数据显示
         queryDataList();
@@ -81,13 +93,43 @@ public class CommentDetail extends AppCompatActivity  {
             }
         });
 
+        //取消喜欢
+        likeif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //一种是点过了再点就不喜欢，一种是没点
+                subtract(postId,oriLikesCount);
+            }
+        });
+        //喜欢
+        addlike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addlike.setImageResource(R.drawable.loving_heart);
+                addLikes(postId,oriLikesCount);
+            }
+        });
+        //增加评论
+        submmitComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (BmobUser.isLogin()){//如果登录
+                    addCommentContent.setHint("喜欢就评论吧~");
+                    addComment(poster1,postContent1,postId,oriCommentCount);
+                }else {//未登录
+                    Toast.makeText(CommentDetail.this,"未登录，请先登录",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
+    //初始化列表数据
     private void initRecyclerView() {
         //设置layoutManager,可以设置显示效果，是线性布局、grid布局，还是瀑布流布局
         comment_recyclerview.setLayoutManager(new LinearLayoutManager(CommentDetail.this, LinearLayoutManager.VERTICAL, false));
 
         mCollectRecyclerAdapter = new CommentAdapter(commentList);
+        mCollectRecyclerAdapter.notifyDataSetChanged();
         //给RecyclerView设置adapter
         comment_recyclerview.setAdapter(mCollectRecyclerAdapter);
         //设置item的分割线  参数是：上下文、列表方向（横向还是纵向）、是否倒叙
@@ -101,8 +143,6 @@ public class CommentDetail extends AppCompatActivity  {
             }
         });
     }
-
-
 
     //查询初始评论数据
     private void queryDataList(){
@@ -131,75 +171,86 @@ public class CommentDetail extends AppCompatActivity  {
         });
     }
 
+    //如果点击空爱心则喜欢数加一
+    private void addLikes(String objectId,String count){
+        int c=Integer.parseInt(count);
+        c=c+1;
+        count=String.valueOf(c);
+        PostTopic p=new PostTopic();
+        p.setLikesCount(count);
+        p.update(objectId, new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e==null){//更新成功
+                    Toast.makeText(CommentDetail.this,"喜欢",Toast.LENGTH_SHORT).show();
+                }else{
+                    //更新失败
+                    Toast.makeText(CommentDetail.this,"未更新数据",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+    //减少喜欢数
+    private void subtract(String objectId,String count){
+        int c=Integer.parseInt(count);
+        c=c-1;
+        count=String.valueOf(c);
+        PostTopic p=new PostTopic();
+        p.setLikesCount(count);
+        p.update(objectId, new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e==null){//更新成功
+                    Toast.makeText(CommentDetail.this,"不喜欢",Toast.LENGTH_SHORT).show();
+                }else{
+                    //更新失败
+                    Toast.makeText(CommentDetail.this,"未更新数据",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
+    //增加评论
+    private void addComment(String name, String Content, final String objectid, final String Commentcount){
+        final Comment ct2=new Comment();
+        ct2.setPoster(name);
+        ct2.setPostContent(Content);
+        ct2.setReplyContent(addCommentContent.getText().toString());
+        //获取当前登录用户
+        User user1=BmobUser.getCurrentUser(User.class);
+        String poster2=(String) BmobUser.getObjectByKey("username");
+        ct2.setReplyer(poster2);
+        ct2.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                if (e==null){
+                    commentList.add(ct2);
+                    updateCommentCount(objectid,Commentcount);
+                    Toast.makeText(CommentDetail.this,"添加评论成功",Toast.LENGTH_SHORT).show();
+                }else{//未查询到
+                    Toast.makeText(CommentDetail.this,"未成功存储评论",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
-
-//    //设置监听
-//    public void setListener(){
-//        comment.setOnClickListener(this);
-//
-//        hide_down.setOnClickListener(this);
-//        comment_send.setOnClickListener(this);
-//    }
-//
-//    @Override
-//    public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.comment:
-//                // 弹出输入法
-//                InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-//                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-//                // 显示评论框
-//                rl_enroll.setVisibility(View.GONE);
-//                rl_comment.setVisibility(View.VISIBLE);
-//                break;
-//            case R.id.hide_down:
-//                // 隐藏评论框
-//                rl_enroll.setVisibility(View.VISIBLE);
-//                rl_comment.setVisibility(View.GONE);
-//                // 隐藏输入法，然后暂存当前输入框的内容，方便下次使用
-//                InputMethodManager im = (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-//                im.hideSoftInputFromWindow(comment_content.getWindowToken(), 0);
-//                break;
-//            case R.id.comment_send:
-//                sendComment();
-//                break;
-//            default:
-//                break;
-//        }
-//    }
-//
-//    //发表评论
-//    public void sendComment(){
-//        if(comment_content.getText().toString().equals("")){
-//            Toast.makeText(getApplicationContext(), "评论不能为空！", Toast.LENGTH_SHORT).show();
-//        }else if (BmobUser.isLogin()){
-//            User user=BmobUser.getCurrentUser(User.class);
-//            // 生成评论数据
-//            Comment comment = new Comment(user.getUsername(),comment_content.getText().toString());
-//
-//            //获取上个活动传过来的发帖人数据
-//            comment.setPoster(poster);
-//            comment.setPostContent(postContent);
-//
-//            comment.save(new SaveListener<String>() {
-//                @Override
-//                public void done(String s, BmobException e) {
-//                    if(e==null){
-//                        Toast.makeText(CommentDetail.this,"上传成功",Toast.LENGTH_SHORT).show();
-//                    }else{
-//                        Toast.makeText(CommentDetail.this,"上传失败",Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                }
-//            });
-//            adapterComment.addComment(comment);
-//            // 发送完，清空输入框
-//            comment_content.setText("");
-//            Toast.makeText(getApplicationContext(), "评论成功！", Toast.LENGTH_SHORT).show();
-//        }else if(!BmobUser.isLogin()){
-//            Toast.makeText(getApplicationContext(), "尚未登录，不能评论！", Toast.LENGTH_SHORT).show();
-//        }
-//    }
+    //增加posttopic表中的评论数
+    private void updateCommentCount(String objectId,String Count){
+        int c=Integer.parseInt(Count);
+        c=c+1;
+        Count=String.valueOf(c);
+        PostTopic pt4=new PostTopic();
+        pt4.setCommentsCount(Count);
+        pt4.update(objectId, new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if(e==null){
+                    //成功
+                }else{
+                    Toast.makeText(CommentDetail.this,"未增加评论数",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
 }
