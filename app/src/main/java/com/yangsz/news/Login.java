@@ -91,8 +91,8 @@ public class Login extends AppCompatActivity {
             @Override
             public void done(User bmobUser, BmobException e) {
                 if (e == null) {
-                    Intent it2=new Intent(Login.this,MainActivity.class);
-                    startActivity(it2);
+                    Intent it6=new Intent(Login.this,MainActivity.class);
+                    startActivity(it6);
                     finish();
                 } else {
                     Snackbar.make(view, "登录失败,请重新输入或注册" , Snackbar.LENGTH_LONG).show();

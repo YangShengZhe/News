@@ -98,7 +98,8 @@ public class topic extends Fragment {
                 if(e==null){//找到数据
                     //给获取的表赋值
                     for(int i=0;i<list.size();i++) {
-                        PostTopic pt = new PostTopic(list.get(i).getPoster(), list.get(i).getPostContent(),list.get(i).getLikesCount(),list.get(i).getBrowseCount(),list.get(i).getObjectId());
+                        PostTopic pt = new PostTopic(list.get(i).getPoster(), list.get(i).getPostContent(),
+                                list.get(i).getLikesCount(), list.get(i).getBrowseCount(),list.get(i).getObjectId());
                         pt.setCommentsCount(list.get(i).getCommentsCount());
                         TList.add(pt);
                     }
@@ -114,7 +115,6 @@ public class topic extends Fragment {
     }
 
     private void initUI(){
-
         //创建adapter
         topicAdapter = new TopicAdapter(getActivity(), TList);
         topicAdapter.notifyDataSetChanged();

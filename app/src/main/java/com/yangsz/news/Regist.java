@@ -69,7 +69,6 @@ public class Regist extends AppCompatActivity {
             }
         });
 
-
         //注册的监听事件
         regist.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -68,10 +68,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.myViewHolder
             likesCount=(TextView)itemView.findViewById(R.id.likesCount);
             BrowseCount=(TextView)itemView.findViewById(R.id.BrowseCount);
             CommentsCount=(TextView)itemView.findViewById(R.id.CommentsCount);
-
-
             //点击事件可以在这儿设置
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -87,7 +84,6 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.myViewHolder
     public interface OnItemClickListener{
         public void OnItemClick(View view,PostTopic data);
    }
-
    private  OnItemClickListener onItemClickListener;
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener=onItemClickListener;

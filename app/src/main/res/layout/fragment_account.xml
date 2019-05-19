@@ -48,10 +48,10 @@
             android:layout_height="wrap_content"
             android:src="@drawable/account"/>
         <TextView
-            android:id="@+id/frag_account_user"
+            android:id="@+id/frag_editUserInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="账号资料"
+            android:text="编辑账号资料"
             android:textColor="@color/black"
             android:layout_weight="1"
             android:layout_marginLeft="10dp"/>

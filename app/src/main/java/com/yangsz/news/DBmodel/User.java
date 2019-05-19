@@ -5,9 +5,8 @@ import cn.bmob.v3.datatype.BmobFile;
 
 public class User extends BmobUser {
     private String Gender;
-    private Integer age;
+    private String age;
     private BmobFile userImage;
-
 
     public BmobFile getUserImage() {
         return userImage;
@@ -24,13 +23,12 @@ public class User extends BmobUser {
         Gender = gender;
     }
 
-    public Integer getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(String age) {
         this.age = age;
     }
-
 
 }
