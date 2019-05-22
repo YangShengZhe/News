@@ -57,10 +57,19 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
 
+    public void initData() {
+        setSupportActionBar(mToolbar);
+        mFragments = new ArrayList<>();
+        mFragments.add(new Page());
+        mFragments.add(new search());
+        mFragments.add(new topic());
+        mFragments.add(new account());
+        // 初始化展示主页
+        setFragmentPosition(0);
+    }
 
 
-    //处理导航栏逻辑
-    public void initBottomNavigation(){
+    public void initBottomNavigation(){//处理导航栏逻辑
         mBottomNavigationView=findViewById(R.id.bv_bottomNavigation);
         //添加监听,第一次点击时，若再点击添加reselect监听
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -86,19 +95,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    public void initData() {
-        setSupportActionBar(mToolbar);
-        mFragments = new ArrayList<>();
-        mFragments.add(new Page());
-        mFragments.add(new search());
-        mFragments.add(new topic());
-        mFragments.add(new account());
-        // 初始化展示主页
-        setFragmentPosition(0);
-    }
-
-    //碎片
+    //碎片,根据用户点击位置不同获取位置并展示对应的fragment碎片在主活动中
     private void setFragmentPosition(int position){
         FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
         Fragment currentFragment=mFragments.get(position);

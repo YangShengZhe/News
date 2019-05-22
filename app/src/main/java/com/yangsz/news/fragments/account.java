@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.yangsz.news.CommentCollection;
+import com.yangsz.news.CommentDetail;
 import com.yangsz.news.DBmodel.User;
 import com.yangsz.news.EditUserInfo;
 import com.yangsz.news.Login;
@@ -25,6 +27,7 @@ public class account extends Fragment {
     private TextView account_username;
     private TextView logout_button;
     private TextView editUserInfo;
+    private TextView collect;
 
     public account() {
         // Required empty public constructor
@@ -83,7 +86,18 @@ public class account extends Fragment {
             }
         });
 
-
+        //收藏监听
+        collect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!BmobUser.isLogin()){//未登录
+                    Snackbar.make(view, "未登录，不能进入编辑" , Snackbar.LENGTH_LONG).show();
+                }else {
+                    Intent i =new Intent(getActivity(), CommentCollection.class);
+                    startActivity(i);
+                }
+            }
+        });
         return view;
     }
 
@@ -93,6 +107,7 @@ public class account extends Fragment {
         userImage=(CircleImageView)view.findViewById(R.id.user_center);
         logout_button=(TextView)view.findViewById(R.id.frag_account_logout);
         editUserInfo=(TextView)view.findViewById(R.id.frag_editUserInfo);
+        collect=(TextView)view.findViewById(R.id.frag_account_focus);
     }
 
     //个人页面初始化

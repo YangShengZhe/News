@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yangsz.news.DBmodel.Collection;
 import com.yangsz.news.DBmodel.Comment;
 import com.yangsz.news.DBmodel.PostTopic;
 import com.yangsz.news.DBmodel.User;
@@ -55,6 +56,7 @@ public class CommentDetail extends AppCompatActivity  {
     private ImageView addlike;
     private Button submmitComment;
     private EditText addCommentContent;
+    private ImageView star;
 
 
     @Override
@@ -70,6 +72,7 @@ public class CommentDetail extends AppCompatActivity  {
         addlike=(ImageView)findViewById(R.id.addlikes);
         submmitComment=(Button)findViewById(R.id.submmitComment);
         addCommentContent=(EditText)findViewById(R.id.addCommenContent);
+        star=(ImageView)findViewById(R.id.star);
 
         Bundle bundle= getIntent().getExtras();
         //初始化发帖人数据
@@ -118,6 +121,18 @@ public class CommentDetail extends AppCompatActivity  {
                     addComment(poster1,postContent1,postId,oriCommentCount);
                 }else {//未登录
                     Toast.makeText(CommentDetail.this,"未登录，请先登录",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        //收藏功能
+        star.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(BmobUser.isLogin()){
+                    isCollect(poster1,postContent1);
+                }else{
+                    Toast.makeText(CommentDetail.this,"未登录",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -248,6 +263,51 @@ public class CommentDetail extends AppCompatActivity  {
                     //成功
                 }else{
                     Toast.makeText(CommentDetail.this,"未增加评论数",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    //检查点击星星时是否已经收藏
+    private void isCollect(final String poster, final String postContent){
+        User u = BmobUser.getCurrentUser(User.class);
+        BmobQuery<Collection> bq = new BmobQuery<>();
+        bq.addWhereEqualTo("collector",u.getUsername());
+        bq.addWhereEqualTo("collectPoster",poster);
+        bq.addWhereEqualTo("collectPostContent",postContent);
+        bq.findObjects(new FindListener<Collection>() {
+            @Override
+            public void done(List<Collection> list, BmobException e) {
+                if(e==null){
+                    //找到
+                    if (list.size()!=0){
+                        Toast.makeText(CommentDetail.this,"早已收藏",Toast.LENGTH_SHORT).show();
+                    }else{
+                        addCollect(poster,postContent);
+                    }
+                }else{
+                    //未找到
+                    Toast.makeText(CommentDetail.this,"未查询到收藏数据",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void addCollect(String er,String Content){
+        User u = BmobUser.getCurrentUser(User.class);
+        Collection c =new Collection();
+        c.setCollector(u.getUsername());
+        c.setCollectPoster(er);
+        c.setCollectPostContent(Content);
+        c.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                if(e==null){
+                    Toast.makeText(CommentDetail.this,"收藏成功",Toast.LENGTH_SHORT).show();
+
+                }else{
+                    //收藏失败
+                    Toast.makeText(CommentDetail.this,"收藏失败",Toast.LENGTH_SHORT).show();
                 }
             }
         });
