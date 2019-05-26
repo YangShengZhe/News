@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,14 +52,23 @@ public class CollectionAdapter  extends RecyclerView.Adapter<CollectionAdapter.m
         private TextView collPoster;
         private TextView collPostContent;
         private Button cancelCol;
+        private LinearLayout clickIn;
 
         public myViewHolder(View itemView){
             super(itemView);
             collPoster=(TextView)itemView.findViewById(R.id.collPoster);
             collPostContent=(TextView)itemView.findViewById(R.id.collPostCotent);
             cancelCol=(Button)itemView.findViewById(R.id.calcel_collection);
+            clickIn=(LinearLayout)itemView.findViewById(R.id.clickInDetail);
 
             cancelCol.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClickListener.OnItemClick(view,collectionList.get(getLayoutPosition()));
+                }
+            });
+
+            clickIn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     onItemClickListener.OnItemClick(view,collectionList.get(getLayoutPosition()));

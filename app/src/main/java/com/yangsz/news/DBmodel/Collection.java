@@ -7,6 +7,10 @@ public class Collection extends BmobObject {
     private String collectPoster;
     private String collectPostContent;
     public String collectId;
+    public String browseCounts;
+    public String likesCounts;
+    public String CommentsCounts;
+    public String postId;
     //构造函数
     public Collection(String collectId,String collectPoster,String collectPostContent){
         this.collectPoster=collectPoster;

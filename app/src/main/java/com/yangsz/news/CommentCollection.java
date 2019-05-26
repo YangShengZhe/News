@@ -1,5 +1,6 @@
 package com.yangsz.news;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.yangsz.news.DBmodel.Collection;
 import com.yangsz.news.DBmodel.Comment;
+import com.yangsz.news.DBmodel.PostTopic;
 import com.yangsz.news.DBmodel.User;
 
 import java.util.ArrayList;
@@ -70,6 +72,19 @@ public class CommentCollection extends AppCompatActivity {
                     case R.id.calcel_collection:
                         cancelFocus(data.collectId);
                         break;
+                    case R.id.clickInDetail:
+                        Intent it7 = new Intent(CommentCollection.this,CommentDetail.class);
+                        Bundle bd=new Bundle();
+                        //添加数据至bundle并传递有发帖人，内容，表的id
+                        bd.putString("poster",data.getCollectPoster());
+                        bd.putString("postContent",data.getCollectPostContent());
+                        bd.putString("likesCount",data.likesCounts);
+                        bd.putString("commentCount",data.CommentsCounts);
+                        bd.putString("id",data.postId);
+                        it7.putExtras(bd);
+
+                        startActivity(it7);
+                        break;
                 }
             }
         });
@@ -86,7 +101,26 @@ public class CommentCollection extends AppCompatActivity {
                 if(e==null){
                     //给表赋值
                     for(int i=0;i<list.size();i++){
-                        Collection n = new Collection(list.get(i).getObjectId(),list.get(i).getCollectPoster(),list.get(i).getCollectPostContent());
+                        final Collection n = new Collection(list.get(i).getObjectId(),list.get(i).getCollectPoster(),list.get(i).getCollectPostContent());
+                        //依照在收藏列表中的数据查询话题列表中的数据，以便点击进入话题详情页
+                        BmobQuery<PostTopic> p = new BmobQuery<>();
+                        p.addWhereEqualTo("poster",n.getCollectPoster());
+                        p.addWhereEqualTo("postContent",n.getCollectPostContent());
+                        p.findObjects(new FindListener<PostTopic>() {
+                            @Override
+                            public void done(List<PostTopic> list, BmobException e) {
+                                if(e==null){
+                                    //找到
+                                    n.browseCounts=list.get(0).getBrowseCount();
+                                    n.likesCounts=list.get(0).getLikesCount();
+                                    n.CommentsCounts=list.get(0).getCommentsCount();
+                                    n.postId=list.get(0).getObjectId();
+                                }else{
+                                    //未找到
+                                    Toast.makeText(CommentCollection.this,"未找到话题表中数据",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                         CList.add(n);
                     }
                     collectionList.addAll(CList);
