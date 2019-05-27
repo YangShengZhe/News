@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bac1"
     android:orientation="vertical"
-    tools:context=".Login">
+    tools:context=".Accountson.Login">
     <ImageView
         android:id="@+id/login_back"
         android:src="@drawable/back"

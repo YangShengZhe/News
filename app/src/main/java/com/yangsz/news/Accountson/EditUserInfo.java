@@ -1,6 +1,5 @@
-package com.yangsz.news;
+package com.yangsz.news.Accountson;
 
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.yangsz.news.DBmodel.User;
+import com.yangsz.news.R;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;

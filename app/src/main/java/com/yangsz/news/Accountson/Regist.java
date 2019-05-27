@@ -1,4 +1,4 @@
-package com.yangsz.news;
+package com.yangsz.news.Accountson;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.yangsz.news.DBmodel.User;
+import com.yangsz.news.R;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -53,7 +54,6 @@ public class Regist extends AppCompatActivity {
         choosed_image=(CircleImageView)findViewById(R.id.choosedimage);
         registBack=(ImageView)findViewById(R.id.regist_back);
 
-
         //选择头像事件监听
         select_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +86,6 @@ public class Regist extends AppCompatActivity {
             }
         });
     }
-
 
     //注册
     private void signUp(final View view) {
@@ -131,7 +130,6 @@ public class Regist extends AppCompatActivity {
                 Log.e("Exception",e.getMessage(),e);
             }
         }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -148,6 +146,5 @@ public class Regist extends AppCompatActivity {
         }
         return path;
     }
-
 
 }

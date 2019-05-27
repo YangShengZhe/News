@@ -1,4 +1,4 @@
-package com.yangsz.news;
+package com.yangsz.news.Accountson;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,10 +10,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.yangsz.news.CommentDetail;
 import com.yangsz.news.DBmodel.Collection;
-import com.yangsz.news.DBmodel.Comment;
 import com.yangsz.news.DBmodel.PostTopic;
 import com.yangsz.news.DBmodel.User;
+import com.yangsz.news.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +74,7 @@ public class CommentCollection extends AppCompatActivity {
                         cancelFocus(data.collectId);
                         break;
                     case R.id.clickInDetail:
-                        Intent it7 = new Intent(CommentCollection.this,CommentDetail.class);
+                        Intent it7 = new Intent(CommentCollection.this, CommentDetail.class);
                         Bundle bd=new Bundle();
                         //添加数据至bundle并传递有发帖人，内容，表的id
                         bd.putString("poster",data.getCollectPoster());
@@ -134,7 +135,7 @@ public class CommentCollection extends AppCompatActivity {
     }
 
     //取消收藏
-    public void cancelFocus(String id){
+    private void cancelFocus(String id){
         Collection c = new Collection();
         c.delete(id, new UpdateListener() {
             @Override

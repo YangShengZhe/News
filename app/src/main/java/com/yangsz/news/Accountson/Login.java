@@ -1,21 +1,12 @@
-package com.yangsz.news;
+package com.yangsz.news.Accountson;
 
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.lang.String;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,6 +14,8 @@ import android.widget.TextView;
 
 
 import com.yangsz.news.DBmodel.User;
+import com.yangsz.news.MainActivity;
+import com.yangsz.news.R;
 
 import cn.bmob.v3.exception.BmobException;
 
@@ -91,7 +84,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void done(User bmobUser, BmobException e) {
                 if (e == null) {
-                    Intent it6=new Intent(Login.this,MainActivity.class);
+                    Intent it6=new Intent(Login.this, MainActivity.class);
                     startActivity(it6);
                     finish();
                 } else {

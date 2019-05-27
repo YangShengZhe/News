@@ -57,6 +57,7 @@ public class CommentDetail extends AppCompatActivity  {
     private Button submmitComment;
     private EditText addCommentContent;
     private ImageView star;
+    private ImageView detailUserImage;
 
 
     @Override
@@ -73,6 +74,7 @@ public class CommentDetail extends AppCompatActivity  {
         submmitComment=(Button)findViewById(R.id.submmitComment);
         addCommentContent=(EditText)findViewById(R.id.addCommenContent);
         star=(ImageView)findViewById(R.id.star);
+        detailUserImage=(ImageView)findViewById(R.id.comment_detail_userimage);
 
         Bundle bundle= getIntent().getExtras();
         //初始化发帖人数据
@@ -87,6 +89,19 @@ public class CommentDetail extends AppCompatActivity  {
 
         //查询数据显示
         queryDataList();
+
+        //点击头像进入个人发帖主页
+        detailUserImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //利用intent传递用户名数据
+                Intent it9 = new Intent(CommentDetail.this,AccountTopic.class);
+                Bundle b=new Bundle();
+                b.putString("poster",poster1);
+                it9.putExtras(b);
+                startActivity(it9);
+            }
+        });
 
         //返回按钮的监听
         commentBack.setOnClickListener(new View.OnClickListener() {
@@ -241,6 +256,7 @@ public class CommentDetail extends AppCompatActivity  {
                 if (e==null){
                     commentList.add(ct2);
                     updateCommentCount(objectid,Commentcount);
+                    addCommentContent.setText("");
                     Toast.makeText(CommentDetail.this,"添加评论成功",Toast.LENGTH_SHORT).show();
                 }else{//未查询到
                     Toast.makeText(CommentDetail.this,"未成功存储评论",Toast.LENGTH_SHORT).show();

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bac1">
+
+    <ImageView
+        android:id="@+id/account_topic_back"
+        android:src="@drawable/back"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/account"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/account_topic_username"
+            android:text="用户"
+            android:layout_marginLeft="50dp"
+            android:textSize="20sp"
+            android:layout_width="70dp"
+            android:layout_height="40dp" />
+        <Button
+            android:id="@+id/addFocus"
+            android:text="关注"
+            android:layout_marginLeft="150dp"
+            android:layout_width="60dp"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/account_topic_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

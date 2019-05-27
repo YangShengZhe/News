@@ -24,7 +24,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CommentCollection"></activity>
+        <activity android:name=".AccountTopic"></activity>
+        <activity android:name=".Accountson.UserTopic" />
+        <activity android:name=".Accountson.Focus" />
+        <activity android:name=".Accountson.CommentCollection" />
         <activity android:name=".Welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,14 +35,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditUserInfo" />
+        <activity android:name=".Accountson.EditUserInfo" />
         <activity android:name=".Addtopic" />
         <activity
             android:name=".CommentDetail"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".Regist" />
-        <activity android:name=".Login" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".Accountson.Regist" />
+        <activity android:name=".Accountson.Login" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".DetailActivity" />
         <activity
             android:name="com.tencent.open.yyb.AppbarActivity"

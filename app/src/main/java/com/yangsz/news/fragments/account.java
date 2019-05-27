@@ -10,11 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.yangsz.news.CommentCollection;
-import com.yangsz.news.CommentDetail;
+import com.yangsz.news.Accountson.CommentCollection;
 import com.yangsz.news.DBmodel.User;
-import com.yangsz.news.EditUserInfo;
-import com.yangsz.news.Login;
+import com.yangsz.news.Accountson.EditUserInfo;
+import com.yangsz.news.Accountson.Focus;
+import com.yangsz.news.Accountson.Login;
 import com.yangsz.news.R;
 
 import cn.bmob.v3.BmobUser;
@@ -28,6 +28,7 @@ public class account extends Fragment {
     private TextView logout_button;
     private TextView editUserInfo;
     private TextView collect;
+    private TextView friends;
 
     public account() {
         // Required empty public constructor
@@ -91,10 +92,23 @@ public class account extends Fragment {
             @Override
             public void onClick(View view) {
                 if (!BmobUser.isLogin()){//未登录
-                    Snackbar.make(view, "未登录，不能进入编辑" , Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(view, "未登录，不能进入收藏界面" , Snackbar.LENGTH_LONG).show();
                 }else {
                     Intent i =new Intent(getActivity(), CommentCollection.class);
                     startActivity(i);
+                }
+            }
+        });
+
+        //朋友关注监听
+        friends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (BmobUser.isLogin()){
+                    Intent it8=new Intent(getActivity(), Focus.class);
+                    startActivity(it8);
+                }else{
+                    Snackbar.make(view, "未登录，不能进入关注界面" , Snackbar.LENGTH_LONG).show();
                 }
             }
         });
@@ -108,6 +122,7 @@ public class account extends Fragment {
         logout_button=(TextView)view.findViewById(R.id.frag_account_logout);
         editUserInfo=(TextView)view.findViewById(R.id.frag_editUserInfo);
         collect=(TextView)view.findViewById(R.id.frag_account_focus);
+        friends=(TextView)view.findViewById(R.id.frag_account_friends);
     }
 
     //个人页面初始化

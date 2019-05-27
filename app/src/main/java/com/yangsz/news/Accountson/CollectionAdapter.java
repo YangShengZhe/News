@@ -1,4 +1,4 @@
-package com.yangsz.news;
+package com.yangsz.news.Accountson;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,13 +8,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.yangsz.news.DBmodel.Collection;
-import java.util.ArrayList;
+import com.yangsz.news.R;
 
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.UpdateListener;
+import java.util.ArrayList;
 
 public class CollectionAdapter  extends RecyclerView.Adapter<CollectionAdapter.myViewHolder> {
     private ArrayList<Collection> collectionList;
